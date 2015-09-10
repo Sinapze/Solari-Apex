@@ -12,8 +12,8 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 //tells forge mod loader that this is a mod, with modid, name, and version. We get these values from statics below
-@Mod(modid = Main.MODID, name = Main.MODNAME, version = Main.VERSION)
-public class Main {
+@Mod(modid = SolariApex.MODID, name = SolariApex.MODNAME, version = SolariApex.VERSION)
+public class SolariApex {
 
 	//we declare a modid, modname and version as statics so we can reference them from anywhere else and know we just need to change them here
 	public static final String MODID = "solariapex";
@@ -22,7 +22,7 @@ public class Main {
 	
 	//creates a new instance of the mod, which actually makes it run when we load it
 	@Instance(MODID)
-	public static Main instance;
+	public static SolariApex instance;
 	
 	//create a proxy which determines whether the mod is running on client or server side
 	@SidedProxy(clientSide= "com.sinapze.solariapex.proxies.ClientProxy", serverSide="com.sinapze.solariapex.proxies.ServerProxy")

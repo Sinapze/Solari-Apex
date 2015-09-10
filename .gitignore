@@ -16,3 +16,5 @@
 *.classpath
 *.project
 *.class
+/options.txt
+/usernamecache.json
