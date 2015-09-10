@@ -1,0 +1,18 @@
+#directories to ignore
+/bin/
+
+/config/
+/crash-reports/
+/logs/
+/mods/
+/resourcepacks/
+/saves/
+
+#File extensions to ignore
+*.psd
+*.iml
+*.ipr
+*.iwd
+*.classpath
+*.project
+*.class
