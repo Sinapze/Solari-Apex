@@ -1,6 +1,10 @@
 package com.sinapze.solariapex.proxies;
 
 
+import com.sinapze.solariapex.block.BlockRecipes;
+import com.sinapze.solariapex.block.ModBlocks;
+import com.sinapze.solariapex.item.ModItems;
+
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -11,15 +15,15 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) 
     {
     	System.out.println("Proxy pre-Initialization Start");
-    	//ModItems.init();
-    	//ModBlocks.init();
+    	ModItems.init();
+    	ModBlocks.init();
     }
     
     //Initialization. Put data structures, add crafting recipes and register new handlers
     public void init(FMLInitializationEvent event) 
     {
     	System.out.println("Proxy Initialization Start");
-    	//BlockRecipes.registerBlockRecipes();
+    	BlockRecipes.registerBlockRecipes();
     	//ItemRecipes.registerItemRecipes();
     }
     
