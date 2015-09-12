@@ -3,6 +3,7 @@ package com.sinapze.solariapex;
 import cpw.mods.fml.common.SidedProxy;
 
 import com.sinapze.solariapex.proxies.CommonProxy;
+import com.sinapze.solariapex.util.CreativeTabSolariApex;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.Mod.Instance;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.creativetab.CreativeTabs;
 
 //tells forge mod loader that this is a mod, with modid, name, and version. We get these values from statics below
 @Mod(modid = SolariApex.MODID, name = SolariApex.MODNAME, version = SolariApex.VERSION)
@@ -23,6 +25,9 @@ public class SolariApex {
 	//creates a new instance of the mod, which actually makes it run when we load it
 	@Instance(MODID)
 	public static SolariApex instance;
+	
+	//Create a new creative tab
+	public static CreativeTabs tabSolariApex = new CreativeTabSolariApex(SolariApex.MODID + ".creativeTab");
 	
 	//create a proxy which determines whether the mod is running on client or server side
 	@SidedProxy(clientSide= "com.sinapze.solariapex.proxies.ClientProxy", serverSide="com.sinapze.solariapex.proxies.ServerProxy")

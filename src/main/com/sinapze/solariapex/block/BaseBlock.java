@@ -4,7 +4,6 @@ import com.sinapze.solariapex.SolariApex;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
 
 
 //A base block class which contains most everything you want in a basic block.
@@ -16,7 +15,7 @@ public class BaseBlock extends Block {
 		super(material); //calls the block constructor which only has the material arg
 		this.setBlockName(unlocalizedName);
 		this.setBlockTextureName(SolariApex.MODID + ":" + unlocalizedName);
-		this.setCreativeTab(CreativeTabs.tabBlock);
+		this.setCreativeTab(SolariApex.tabSolariApex);
 		this.setHardness(hardness); //how long it takes to break. stone has 1.5, obsidian has 50.0
 		this.setResistance(resistance); //resistance to explosion. stone has 10.0, obsidian has 2,000.0
 		this.setHarvestLevel(tool, harvestLevel); //set which tool is effective against the block (pickaxe, axe, shovel), and the level of tool 0=wood, 3=diamond

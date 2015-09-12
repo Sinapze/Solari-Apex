@@ -12,6 +12,6 @@ public class ItemBase extends Item{
 		super(); //calls the item constructor
 		setUnlocalizedName(unlocalizedName); //sets the unlocalized name
 		setTextureName(SolariApex.MODID + ":" + unlocalizedName);
-		//setCreativeTab(SolariApex.tabSolariApex); //sets the items in the mod creative tab
+		setCreativeTab(SolariApex.tabSolariApex); //sets the items in the mod creative tab
 	}
 }

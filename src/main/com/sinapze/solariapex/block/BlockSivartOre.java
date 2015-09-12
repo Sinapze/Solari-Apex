@@ -6,6 +6,7 @@ import com.sinapze.solariapex.item.ModItems;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockSivartOre extends BaseBlock{
 
@@ -40,6 +41,12 @@ public class BlockSivartOre extends BaseBlock{
 	public int quantityDropped(int meta, int fortune, Random random)
 	{
 		return (this.least_quantity + random.nextInt(this.most_quantity - this.least_quantity + fortune + 1));
+	}
+	
+	@Override
+	public int getExpDrop(IBlockAccess world, int metadata, int fortune)
+	{
+		return (3 + fortune);
 	}
 }
 

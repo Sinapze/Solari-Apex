@@ -6,9 +6,11 @@ import net.minecraft.block.Block;
 public class ModBlocks {
 
 	public static Block sivartOre;
+	public static Block sivartBlock;
 	
 	public static void init()
 	{
 		GameRegistry.registerBlock(sivartOre = new BlockSivartOre(), "sivartOre");
+		GameRegistry.registerBlock(sivartBlock = new BlockSivart(), "sivartBlock");
 	}
 }
