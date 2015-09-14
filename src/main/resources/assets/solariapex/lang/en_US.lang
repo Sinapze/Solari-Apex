@@ -4,6 +4,11 @@ itemGroup.solariapex.creativeTab=Solari Apex
 #Blocks
 tile.sivartOre.name=Sivart Ore
 tile.sivartBlock.name=Sivart Block
+tile.sivartLamp.name=Sivart Lamp
+
+tile.evoliteOre.name=Evolite Ore
+tile.evoliteBlock.name=Evolite Block
 
 #Items
 item.sivartDust.name=Sivart Dust
+item.evoliteIngot.name=Evolite Ingot

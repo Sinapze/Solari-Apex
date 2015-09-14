@@ -3,11 +3,14 @@ package com.sinapze.solariapex.proxies;
 
 import com.sinapze.solariapex.block.BlockRecipes;
 import com.sinapze.solariapex.block.ModBlocks;
+import com.sinapze.solariapex.item.ItemRecipes;
 import com.sinapze.solariapex.item.ModItems;
+import com.sinapze.solariapex.util.EventHandler;
 
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.MinecraftForge;
 
 public class CommonProxy {
 
@@ -24,7 +27,8 @@ public class CommonProxy {
     {
     	System.out.println("Proxy Initialization Start");
     	BlockRecipes.registerBlockRecipes();
-    	//ItemRecipes.registerItemRecipes();
+    	ItemRecipes.registerItemRecipes();
+    	MinecraftForge.EVENT_BUS.register(new EventHandler());
     }
     
     //Post-initialization. Put things that communicate based on other mods (ie detect botania and add recipes based on that)

@@ -2,6 +2,7 @@ package com.sinapze.solariapex.block;
 
 import net.minecraft.block.material.Material;
 
+//super basic block that is just for decoration. Simply calls the baseblock constructor
 public class BlockSivart extends BaseBlock{
 
 	public BlockSivart() 
