@@ -15,8 +15,8 @@ import net.minecraftforge.common.ISpecialArmor;
 public class ItemEvoliteArmor extends ItemArmor implements ISpecialArmor {
 	
 	//create a string to hold our texture name
-	private static String TEXTURE_NAME;
-
+	private static String TEXTURE_NAME = "evolite";
+	
 	//create a constructor that will be called by the other evolite armor classes with just type and name
 	public ItemEvoliteArmor(int type, String unlocalizedName)
 	{
@@ -55,14 +55,17 @@ public class ItemEvoliteArmor extends ItemArmor implements ISpecialArmor {
 		return new ArmorProperties(0, damageReduceAmount / 25D, armor.getMaxDamage() + 1 - armor.getItemDamage());
 	}
 
+	//This is the armor bar display (above the hearts by defualt). It wants the integer value of each armor piece's damage reduction
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		// TODO Auto-generated method stub
-		return 0;
+		//we can get the damage reduction amount from the material itself
+		return damageReduceAmount;
 	}
 
+	//This function manages how the armor takes damage when it absorbs the incoming damagesource
 	@Override
-	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) 
+	{
 		// TODO Auto-generated method stub
 		
 	}
