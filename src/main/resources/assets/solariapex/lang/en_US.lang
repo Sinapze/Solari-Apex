@@ -12,6 +12,7 @@ tile.evoliteBlock.name=Evolite Block
 #Items
 item.sivartDust.name=Sivart Dust
 item.evoliteIngot.name=Evolite Ingot
+item.blyzeChunk.name=Blyze Chunk
 
 #Equipment
 item.evoliteHelm.name=Evolite Helm
