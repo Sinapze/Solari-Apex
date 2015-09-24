@@ -8,6 +8,7 @@ import com.sinapze.solariapex.item.equipment.armor.evolite.ItemEvoliteBoots;
 import com.sinapze.solariapex.item.equipment.armor.evolite.ItemEvoliteChest;
 import com.sinapze.solariapex.item.equipment.armor.evolite.ItemEvoliteHelm;
 import com.sinapze.solariapex.item.equipment.armor.evolite.ItemEvoliteLegs;
+import com.sinapze.solariapex.item.equipment.tool.ItemDaybreak;
 import com.sinapze.solariapex.item.equipment.tool.blyze.ItemBlyzeSword;
 import com.sinapze.solariapex.item.equipment.tool.evolite.ItemEvoliteAxe;
 import com.sinapze.solariapex.item.equipment.tool.evolite.ItemEvoliteHoe;
@@ -24,6 +25,7 @@ public class ModItems {
 	public static Item sivartDust;
 	public static Item evoliteIngot;
 	public static Item blyzeChunk;
+	public static Item daybreak;
 	
 	//armor items
 	public static Item evoliteHelm;
@@ -55,6 +57,7 @@ public class ModItems {
 		GameRegistry.registerItem(sivartDust = new ItemSivartDust(), "sivartDust");
 		GameRegistry.registerItem(evoliteIngot = new ItemEvoliteIngot(), "evoliteIngot");
 		GameRegistry.registerItem(blyzeChunk = new ItemBlyzeChunk(), "blyzeChunk");
+		GameRegistry.registerItem(daybreak = new ItemDaybreak(), "daybreak");
 		
 		//armor items
 		GameRegistry.registerItem(evoliteHelm = new ItemEvoliteHelm(), "evoliteHelm");
