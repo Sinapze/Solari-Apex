@@ -26,8 +26,9 @@ import net.minecraft.world.World;
 
 public class ItemDaybreak extends ItemBase{
 
-	IIcon onIcon; //create icons names to hold our on and off icons
+	IIcon onIcon; //create icons names to hold our on, off, and empty icons
 	IIcon offIcon;
+	IIcon emptyIcon;
 	
 	public ItemDaybreak() 
 	{
@@ -36,7 +37,6 @@ public class ItemDaybreak extends ItemBase{
 		setHasSubtypes(true); //tells the game we have subtypes (for the different textures)
 	}
 
-	
 	@Override
 	public void onCreated(ItemStack itemStack, World world, EntityPlayer player) 
 	{
@@ -44,6 +44,7 @@ public class ItemDaybreak extends ItemBase{
 		//initially we want this to be 0, and it will increase as torches are added to it
 		itemStack.stackTagCompound = new NBTTagCompound();
 		itemStack.stackTagCompound.setLong("torchNum", 0);
+		itemStack.stackTagCompound.setString("activeStatus", "off");
 	}
 	
 
@@ -57,6 +58,8 @@ public class ItemDaybreak extends ItemBase{
 		{
 			long torchNum = itemStack.stackTagCompound.getLong("torchNum");
 			list.add(EnumChatFormatting.YELLOW + "Torches Stored: " + torchNum);
+			//list.add("Status: " + itemStack.stackTagCompound.getString("activeStatus")); //debugging line to check its status
+			//list.add("Damage Value: " + itemStack.getItemDamage()); //debugging line to check internal damage value
 		}
 		else //if there isnt a nbt tag just put a placeholder until it is actually spawned in and onUpdate gives it one
 			list.add(EnumChatFormatting.YELLOW + "Torches Stored: ");
@@ -138,6 +141,29 @@ public class ItemDaybreak extends ItemBase{
 		return false;
 	}
 	
+
+	//Toggles active (torch sucking) mode on a sneak right click so you can still have torches for crafting or something
+	//Idea of right clicking while sneaking to toggle states is from botania's black hole talisman. Thanks vazkii
+	@Override
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player) 
+	{
+		if(player.isSneaking()) 
+		{
+			if (itemStack.stackTagCompound.getString("activeStatus") == "on")
+			{
+				itemStack.stackTagCompound.setString("activeStatus", "off");
+				player.writeToNBT(itemStack.stackTagCompound);
+				return itemStack;
+			}
+			else if (itemStack.stackTagCompound.getString("activeStatus") == "off")
+			{
+				itemStack.stackTagCompound.setString("activeStatus", "on");
+				player.writeToNBT(itemStack.stackTagCompound);
+				return itemStack;
+			}
+		}
+		return itemStack;
+	}
 	
 	@Override
 	public void onUpdate(ItemStack itemStack, World world, Entity entity, int p_77663_4_, boolean p_77663_5_)
@@ -148,36 +174,49 @@ public class ItemDaybreak extends ItemBase{
 		{
 			itemStack.stackTagCompound = new NBTTagCompound();
 			itemStack.stackTagCompound.setLong("torchNum", 0);
+			itemStack.stackTagCompound.setString("activeStatus", "off");
 		}
+		
 		//make an integer array that is the length of the players inventory
 		int[] slots = new int[player.inventory.getSizeInventory() - player.inventory.armorInventory.length];
-		
-		for (int i = 0; i < slots.length; i++) //start a for loop to go through each slot of inventory
+		//if our item is active, we will try to suck up torches. if its not, we wont
+		if (itemStack.stackTagCompound.getString("activeStatus") == "on")
 		{
-			long torchNum = itemStack.stackTagCompound.getLong("torchNum"); //get our current amount stored before each iteration
-			ItemStack stack = player.inventory.getStackInSlot(i); //get the stack we are currently looking at
-			if(stack == null) //if the slot is empty we just want to go to the next iteration
-				continue;
-			else if (stack.getItem() == Item.getItemFromBlock(Blocks.torch)) //if the slot contains torches
+			for (int i = 0; i < slots.length; i++) //start a for loop to go through each slot of inventory
 			{
-				itemStack.stackTagCompound.setLong("torchNum", torchNum + stack.stackSize); //we add the stacksize to our tag
-				player.inventory.setInventorySlotContents(i, null); //and delete the torches out of the inventory
+				long torchNum = itemStack.stackTagCompound.getLong("torchNum"); //get our current amount stored before each iteration
+				ItemStack stack = player.inventory.getStackInSlot(i); //get the stack we are currently looking at
+				if(stack == null) //if the slot is empty we just want to go to the next iteration
+					continue;
+				else if (stack.getItem() == Item.getItemFromBlock(Blocks.torch)) //if its not null, check if the slot contains torches
+				{
+					itemStack.stackTagCompound.setLong("torchNum", torchNum + stack.stackSize); //we add the stacksize to our tag
+					player.inventory.setInventorySlotContents(i, null); //and delete the torches out of the inventory
+				}
 			}
 		}
-		//every tick, we check to see if the number of torches is greater than 0. if it is, we set damage to 1 (on) or if it isnt set it to 0 (off)
-		if (itemStack.stackTagCompound.getLong("torchNum") > 0)
-			itemStack.setItemDamage(1);
-		else
+		
+		//every tick, we check to see if the number of torches is greater than 0. if it is, we set damage to 2 to let us know it is empty
+		if (itemStack.stackTagCompound.getString("activeStatus") == "on")
+		{
+			if (itemStack.stackTagCompound.getLong("torchNum") == 0) //if its on but there are no torches
+				itemStack.setItemDamage(2); //we want to set to 2 to show its empty
+			else
+				itemStack.setItemDamage(1);
+		}
+		else if (itemStack.stackTagCompound.getString("activeStatus") == "off") //placing this here will set it to the off texture even if there is 0 torches stored and its deactivated
 			itemStack.setItemDamage(0);
+		
 	}
 	
-	//this is where we define where the textures come from for the on and off states
+	//this is where we define where the textures come from for the different states
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerIcons(IIconRegister reg) 
 	{
-		offIcon = reg.registerIcon(SolariApex.MODID + ":/tools/daybreak_0");
-		onIcon = reg.registerIcon(SolariApex.MODID + ":/tools/daybreak_1");
+		offIcon = reg.registerIcon(SolariApex.MODID + ":tools/daybreak_0");
+		onIcon = reg.registerIcon(SolariApex.MODID + ":tools/daybreak_1");
+		emptyIcon = reg.registerIcon(SolariApex.MODID + ":tools/daybreak_2");
 	}
 	
 	//this function is used to change the texture based on the item damage. 0 == off, 1 == on
@@ -185,7 +224,14 @@ public class ItemDaybreak extends ItemBase{
 	@SideOnly(Side.CLIENT)
 	public IIcon getIconFromDamage(int damage) 
 	{
-		return (damage == 1) ? onIcon : offIcon;
+		if (damage == 2) //damage of 2 means the empty icon
+			return emptyIcon;
+		if (damage == 1) //damage of 1 means active
+			return onIcon;
+		if (damage == 0) //damage of 0 means inactive
+			return offIcon;
+		//else //for some reason if the damage is not one of these 3 values (cheats, glitch etc) just set icon to normal one
+			return onIcon;
 	}
 
 }
