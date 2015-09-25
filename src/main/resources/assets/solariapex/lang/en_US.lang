@@ -15,6 +15,8 @@ item.evoliteIngot.name=Evolite Ingot
 item.blyzeChunk.name=Blyze Chunk
 
 #Equipment
+item.daybreak.name=Daybreak
+
 item.evoliteHelm.name=Evolite Helm
 item.evoliteChest.name=Evolite Chestplate
 item.evoliteLegs.name=Evolite Leggings
@@ -24,3 +26,15 @@ item.evolitePick.name=Evolite Pickaxe
 item.evoliteAxe.name=Evolite Axe
 item.evoliteShovel.name=Evolite Shovel
 item.evoliteHoe.name=Evolite Hoe
+
+item.blyzeHelm.name=Blyze Helm
+item.blyzeChest.name=Blyze Chestplate
+item.blyzeLegs.name=Blyze Leggings
+item.blyzeBoots.name=Blyze Boots
+item.blyzeSword.name=Blyze Sword
+item.blyzePick.name=Blyze Pickaxe
+item.blyzeAxe.name=Blyze Axe
+item.blyzeShovel.name=Blyze Shovel
+item.blyzeHoe.name=Blyze Hoe
+
+
